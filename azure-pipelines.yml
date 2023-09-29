@@ -16,7 +16,8 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
+  buildConfiguration1: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -32,6 +33,13 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+  - task: VSBuild@2
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration1)'
+
 #- task: VSTest@2
 #  inputs:
 #    platform: '$(buildPlatform)'
@@ -42,7 +50,7 @@ steps:
 
 - template: templates/releaseconfig.yml
   parameters:
-    buildConfiguration: 'Release'
+    buildConfiguration1: 'Release'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
