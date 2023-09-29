@@ -40,7 +40,7 @@ steps:
   parameters:
     buildConfiguration: 'Debug'
 
-- template: templates/testconfig.yml
+- template: templates/releaseconfig.yml
   parameters:
     buildConfiguration: 'Release'
 
