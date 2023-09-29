@@ -16,7 +16,7 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -43,7 +43,7 @@ steps:
     command: 'Debug'
     projects: '**/*.sln'
     publishWebProjects: false
-    arguments: '--no-build --configuration Debug --output $(Build.ArtifactStagingDirectory)/Release'
+    arguments: '--no-build --configuration Debug --output $(Build.ArtifactStagingDirectory)/Debug'
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
